@@ -3,12 +3,12 @@ import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 export default function Header() {
   return (
-    <header className="sticky flex top-0 h-8 bg-slate-500">
-      <nav className="pl-4 flex h-full flex-col items-center justify-center">
+    <header className="sticky top-0 flex h-8 bg-slate-500">
+      <nav className="flex h-full flex-col items-center justify-center pl-4">
         <Link href="/">Home</Link>
       </nav>
       <div className="flex-grow" />
-      <div className="w-1/6 flex flex-col items-center justify-center">
+      <div className="flex w-1/6 flex-col items-center justify-center">
         <SignedOut>
           <SignInButton />
         </SignedOut>
