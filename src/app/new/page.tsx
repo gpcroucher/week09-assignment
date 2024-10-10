@@ -1,10 +1,17 @@
 import connect from "@/utils/db";
-import { redirect } from "next/navigation";
+import NewPostForm from "@/components/NewPostForm";
 import { revalidatePath } from "next/cache";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
 
 export default function NewPostPage() {
-  async function handleSubmit(formData: FormData) {
+  async function serverHandleSubmit(formData: FormData) {
     "use server";
+    // get user
+    const user = await currentUser();
+    const clerk_id = user?.id;
 
     // get form data, replacing empty strings with null
     const title = formData.get("title") ? formData.get("title") : null;
@@ -13,12 +20,11 @@ export default function NewPostPage() {
     const repo_url = formData.get("repo_url") ? formData.get("repo_url") : null;
 
     const db = connect();
-    try {
-      await db.query(
-        `INSERT INTO week09_posts (title, body, live_url, repo_url, clerk_id) VALUES ($1, $2, $3, $4, $5)`,
-        [title, body, live_url, repo_url, "doesn't matter yet"],
-      );
-    } catch {}
+
+    await db.query(
+      `INSERT INTO week09_posts (title, body, live_url, repo_url, clerk_id) VALUES ($1, $2, $3, $4, $5)`,
+      [title, body, live_url, repo_url, clerk_id],
+    );
 
     revalidatePath("/posts");
     redirect("/posts");
@@ -26,22 +32,12 @@ export default function NewPostPage() {
 
   return (
     <div className="flex h-screen w-screen items-center justify-center">
-      <form action={handleSubmit} className="border border-black bg-slate-400">
-        <label htmlFor="titleInput">Title</label>
-        <input type="text" name="title" id="titleInput" />
-        <br />
-        <label htmlFor="bodyInput">Your post</label>
-        <textarea name="body" id="bodyInput" />
-        <p>
-          Optionally, add a link to your deployment and/or your source
-          repository.
-        </p>
-        <label htmlFor="liveUrlInput">Deployment URL</label>
-        <input type="text" name="live_url" id="liveUrlInput" />
-        <label htmlFor="titleInput">Repository URL</label>
-        <input type="text" name="repo_url" id="repoUrlInput" />
-        <button>Submit Post</button>
-      </form>
+      <SignedIn>
+        <NewPostForm serverAction={serverHandleSubmit} />
+      </SignedIn>
+      <SignedOut>
+        <Link href="/">Please sign in</Link>
+      </SignedOut>
     </div>
   );
 }
