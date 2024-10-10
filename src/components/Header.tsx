@@ -8,6 +8,7 @@ export default function Header() {
         <Link href="/">Home</Link>
         <Link href="/posts">Posts</Link>
         <Link href="/new">New Post</Link>
+        <Link href="/profile">Profile</Link>
       </nav>
       <div className="flex-grow" />
       <div className="flex w-1/6 flex-col items-center justify-center">
