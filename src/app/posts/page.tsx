@@ -1,3 +1,4 @@
+import Post from "@/components/Post";
 import connect from "@/utils/db";
 
 export default async function PostsPage() {
@@ -9,15 +10,10 @@ export default async function PostsPage() {
   }
 
   return (
-    <>
+    <div className="grid grid-cols-3">
       {(await getAllPosts()).map((post) => {
-        return (
-          <div key={post.post_id}>
-            <h2>{post.title}</h2>
-            <p>{post.body}</p>
-          </div>
-        );
+        return <Post key={post.post_id} post={post} />;
       })}
-    </>
+    </div>
   );
 }
