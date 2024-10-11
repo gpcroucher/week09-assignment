@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import Timestamp from "@/components/Timestamp";
 
 type Post = {
   post_id: number;
@@ -41,9 +41,7 @@ export default function Post({ post }: PostProps) {
       ) : (
         <></>
       )}
-      <p className="italic text-gray-500">
-        {format(created_at, "E do MMM y, kk:mm:ss")}
-      </p>
+      <Timestamp timestamp={created_at} />
       <p>{clerk_id}</p>
     </div>
   );

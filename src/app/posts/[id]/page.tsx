@@ -1,9 +1,9 @@
 "use server";
 import CommentForm from "@/components/CommentForm";
 import Post from "@/components/Post";
+import Timestamp from "@/components/Timestamp";
 import connect from "@/utils/db";
 import { currentUser } from "@clerk/nextjs/server";
-import { format } from "date-fns";
 import { notFound } from "next/navigation";
 
 export default async function IndividualPostPage({
@@ -30,9 +30,9 @@ export default async function IndividualPostPage({
       {(await getComments()).map(
         ({ comment_id, body, created_at, clerk_id }) => {
           return (
-            <div key={comment_id} className="bg-slate-500">
+            <div key={comment_id}>
               <p>{body}</p>
-              <p>{format(created_at, "E do MMM y, kk:mm:ss")}</p>
+              <Timestamp timestamp={created_at} />
               <p>{clerk_id}</p>
             </div>
           );
@@ -47,7 +47,7 @@ export default async function IndividualPostPage({
       `SELECT * FROM week09_comments WHERE post_id = $1`,
       [post_id],
     );
-    return await dbResult.rows;
+    return dbResult.rows;
   }
 }
 
