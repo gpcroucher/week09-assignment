@@ -24,7 +24,9 @@ export default function Post({ post }: PostProps) {
       {live_url ? (
         <p>
           <span className="italic">Website: </span>
-          {live_url}
+          <a href={live_url} className="text-cyan-800 underline">
+            {live_url}
+          </a>
         </p>
       ) : (
         <></>
@@ -32,7 +34,9 @@ export default function Post({ post }: PostProps) {
       {repo_url ? (
         <p>
           <span className="italic">Repo: </span>
-          {repo_url}
+          <a href={repo_url} className="text-cyan-800 underline">
+            {repo_url}
+          </a>
         </p>
       ) : (
         <></>
