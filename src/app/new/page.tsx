@@ -20,6 +20,12 @@ export default function NewPostPage() {
     const repo_url = formData.get("repo_url") ? formData.get("repo_url") : null;
 
     const db = connect();
+    try {
+      await db.query(
+        `INSERT INTO week09_users (clerk_id, username) VALUES ($1, $2)`,
+        [clerk_id, user?.username],
+      );
+    } catch {}
 
     await db.query(
       `INSERT INTO week09_posts (title, body, live_url, repo_url, clerk_id) VALUES ($1, $2, $3, $4, $5)`,
