@@ -1,4 +1,5 @@
 import Timestamp from "@/components/Timestamp";
+import UsernameWithFollowButton from "@/components/UsernameWithFollowButton";
 
 type Post = {
   post_id: number;
@@ -41,7 +42,7 @@ export default function Post({ post }: PostProps) {
         <></>
       )}
       <Timestamp timestamp={created_at} />
-      <p>{user_id}</p>
+      <UsernameWithFollowButton user_id={user_id} />
     </div>
   );
 }
