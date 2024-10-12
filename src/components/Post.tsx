@@ -7,7 +7,7 @@ type Post = {
   live_url: string | null;
   repo_url: string | null;
   created_at: Date;
-  clerk_id: string;
+  user_id: number;
 };
 
 type PostProps = {
@@ -15,8 +15,7 @@ type PostProps = {
 };
 
 export default function Post({ post }: PostProps) {
-  const { title, body, live_url, repo_url, created_at, clerk_id } = post;
-  console.log(created_at);
+  const { title, body, live_url, repo_url, created_at, user_id } = post;
   return (
     <div className="flex max-h-[70svh] flex-col border-2 border-blue-950">
       <h2 className="text-center text-4xl">{title}</h2>
@@ -42,7 +41,7 @@ export default function Post({ post }: PostProps) {
         <></>
       )}
       <Timestamp timestamp={created_at} />
-      <p>{clerk_id}</p>
+      <p>{user_id}</p>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import CommentForm from "@/components/CommentForm";
 import Post from "@/components/Post";
 import Timestamp from "@/components/Timestamp";
 import connect from "@/utils/db";
+import { checkAndSubmitUser } from "@/utils/dbUtils";
 import { currentUser } from "@clerk/nextjs/server";
 import { notFound } from "next/navigation";
 
@@ -28,12 +29,12 @@ export default async function IndividualPostPage({
     <>
       <Post post={post} />
       {(await getComments()).map(
-        ({ comment_id, body, created_at, clerk_id }) => {
+        ({ comment_id, body, created_at, user_id }) => {
           return (
             <div key={comment_id}>
               <p>{body}</p>
               <Timestamp timestamp={created_at} />
-              <p>{clerk_id}</p>
+              <p>{user_id}</p>
             </div>
           );
         },
@@ -56,11 +57,13 @@ export async function serverSendComment(formData: FormData, post_id: string) {
   const body = formData.get("body") as string;
   console.log(body);
   const db = connect();
-  const user = await currentUser(); // todo: save this to localstorage to avoid pinging clerk so often
-  const clerk_id = user?.id as string;
+  // const user = await currentUser(); // todo: save this to localstorage to avoid pinging clerk so often
+  // const clerk_id = user?.id as string;
+
+  const user_id = await checkAndSubmitUser();
 
   await db.query(
-    `INSERT INTO week09_comments (body, post_id, clerk_id) VALUES ($1, $2, $3)`,
-    [body, post_id, clerk_id],
+    `INSERT INTO week09_comments (body, post_id, user_id) VALUES ($1, $2, $3)`,
+    [body, post_id, user_id],
   );
 }
