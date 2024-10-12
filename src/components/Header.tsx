@@ -7,6 +7,7 @@ export default function Header() {
       <nav className="flex h-full items-center justify-center gap-4 pl-4">
         <Link href="/">Home</Link>
         <Link href="/posts">Posts</Link>
+        <Link href="/posts/following">Following</Link>
         <Link href="/new">New Post</Link>
         <Link href="/profile">Profile</Link>
       </nav>

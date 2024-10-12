@@ -1,7 +1,7 @@
 import Timestamp from "@/components/Timestamp";
 import UsernameWithFollowButton from "@/components/UsernameWithFollowButton";
 
-type Post = {
+export type Post = {
   post_id: number;
   title: string;
   body: string;
@@ -15,7 +15,7 @@ type PostProps = {
   post: Post;
 };
 
-export default function Post({ post }: PostProps) {
+export default function PostCard({ post }: PostProps) {
   const { title, body, live_url, repo_url, created_at, user_id } = post;
   return (
     <div className="flex max-h-[70svh] flex-col border-2 border-blue-950">

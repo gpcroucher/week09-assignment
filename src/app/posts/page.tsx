@@ -1,4 +1,4 @@
-import Post from "@/components/Post";
+import PostCard from "@/components/PostCard";
 import connect from "@/utils/db";
 
 export default async function PostsPage() {
@@ -12,7 +12,7 @@ export default async function PostsPage() {
   return (
     <div className="grid grid-cols-3">
       {(await getAllPosts()).map((post) => {
-        return <Post key={post.post_id} post={post} />;
+        return <PostCard key={post.post_id} post={post} />;
       })}
     </div>
   );

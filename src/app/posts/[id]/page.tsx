@@ -1,6 +1,6 @@
 "use server";
 import CommentForm from "@/components/CommentForm";
-import Post from "@/components/Post";
+import PostCard from "@/components/PostCard";
 import Timestamp from "@/components/Timestamp";
 import connect from "@/utils/db";
 import { checkAndSubmitUser } from "@/utils/dbUtils";
@@ -27,7 +27,7 @@ export default async function IndividualPostPage({
 
   return (
     <>
-      <Post post={post} />
+      <PostCard post={post} />
       {(await getComments()).map(
         ({ comment_id, body, created_at, user_id }) => {
           return (
