@@ -20,6 +20,12 @@ export async function checkAndSubmitUser() {
   return dbResult.rows[0].user_id as number;
 }
 
+export async function getCurrentUser() {
+  const user = await currentUser(); // todo: save this to localstorage to avoid pinging clerk so often
+  const clerk_id = user?.id as string;
+  return await getUserByClerkId(clerk_id);
+}
+
 export async function getUserByClerkId(clerk_id: string) {
   const dbResult = await db.query(
     `SELECT * FROM week09_users WHERE clerk_id = $1`,
