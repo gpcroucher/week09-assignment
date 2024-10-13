@@ -1,7 +1,7 @@
 "use server";
+import CommentCard from "@/components/CommentCard";
 import CommentForm from "@/components/CommentForm";
 import PostCard from "@/components/PostCard";
-import Timestamp from "@/components/Timestamp";
 import connect from "@/utils/db";
 import { currentUser } from "@clerk/nextjs/server";
 import { notFound } from "next/navigation";
@@ -27,17 +27,9 @@ export default async function IndividualPostPage({
   return (
     <>
       <PostCard post={post} />
-      {(await getComments()).map(
-        ({ comment_id, body, created_at, user_id }) => {
-          return (
-            <div key={comment_id}>
-              <p>{body}</p>
-              <Timestamp timestamp={created_at} />
-              <p>{user_id}</p>
-            </div>
-          );
-        },
-      )}
+      {(await getComments()).map((comment) => {
+        return <CommentCard key={comment.comment_id} comment={comment} />;
+      })}
       <CommentForm post_id={post_id} username={username} />
     </>
   );
