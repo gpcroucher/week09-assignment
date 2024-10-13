@@ -1,3 +1,4 @@
+"use server";
 import connect from "./db";
 import { checkAndSubmitUser } from "./dbUtils";
 
