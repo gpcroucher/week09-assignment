@@ -20,7 +20,7 @@ export default function PostCard({ post }: PostProps) {
   const { post_id, title, body, live_url, repo_url, created_at, user_id } =
     post;
   return (
-    <div className="flex max-h-[70svh] flex-col border-2 border-blue-950">
+    <div className="m-2 flex max-h-[70svh] flex-col rounded-xl border-2 border-slate-600 bg-slate-100 p-2">
       <Link
         href={`/posts/${post_id}`}
         className="text-center text-4xl underline"
