@@ -1,5 +1,6 @@
 import Timestamp from "@/components/Timestamp";
 import UsernameWithFollowButton from "@/components/UsernameWithFollowButton";
+import Link from "next/link";
 
 export type Post = {
   post_id: number;
@@ -16,10 +17,16 @@ type PostProps = {
 };
 
 export default function PostCard({ post }: PostProps) {
-  const { title, body, live_url, repo_url, created_at, user_id } = post;
+  const { post_id, title, body, live_url, repo_url, created_at, user_id } =
+    post;
   return (
     <div className="flex max-h-[70svh] flex-col border-2 border-blue-950">
-      <h2 className="text-center text-4xl">{title}</h2>
+      <Link
+        href={`/posts/${post_id}`}
+        className="text-center text-4xl underline"
+      >
+        {title}
+      </Link>
       <p className="flex-1 overflow-y-scroll">{body}</p>
       {live_url ? (
         <p>
