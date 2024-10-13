@@ -1,6 +1,6 @@
 "use client";
 import { FormEvent } from "react";
-import { serverSendComment } from "@/app/posts/[id]/page";
+import { serverSendComment } from "@/utils/serverSendComment";
 
 type CommentFormProps = {
   post_id: string;
